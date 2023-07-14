@@ -14,27 +14,69 @@
     <!-- header -->
     <nav class="navbar navbar-expand-lg  fixed-top bg-dark" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand navText" href="#page-top">Coder House Class</a>
+            <a class="navbar-brand navText" href="#page-top">MusicReviews</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link navText" href="{% url 'Cursos' %}">Cursos</a></li>
-                    <li class="nav-item"><a class="nav-link navText" href="{% url 'Entregables' %}">Entregables</a></li>
-                    <li class="nav-item"><a class="nav-link navText" href="{% url 'Estudiantes' %}">Estudiantes</a></li>
-                    <li class="nav-item"><a class="nav-link navText" href="{% url 'Profesores' %}">Profesores</a></li> 
-                    <li class="nav-item"><a class="nav-link navText" href=""><img src="{{avatar}}" width="40px" alt="perfil"></a></li>
-                    <li class="nav-item"><a class="nav-link navText" href="{% url 'perfil' %}">{{user.username}}</a></li>
-                    <li class="nav-item"><a class="nav-link navText" href="{% url 'Logout' %}">Logout</a></li> 
+                    <li class="nav-item"><a class="nav-link navText" href="#">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link navText" href="#">Perfil</a></li> 
+                    <li class="nav-item"><a class="nav-link navText" href="#">{{user.username}}</a></li>
+                    <li class="nav-item"><a class="nav-link navText" href="#">Logout</a></li> 
                 </ul>
             </div>
         </div>
     </nav>
     <div class="contenido">
-        {% block contenidoQueCambia %}
-        {% endblock %}
+        {% block content %}
+
+        <!-- Inicio -->
+    <br>
+    <br>
+    <br>
+    <section id="home" class="text-dark p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+      <div class="container text-center">
+        <div class="">
+            <div>
+                <h2>Bienvenido/a a <span class="text-success">MusicReviews!</span></h2>
+            </div>
+        </div>
+    </div>
+    
+    </section>
+    
+    
+        <!-- Link Venta/Permuta Instrumento -->
+    
+        <section class="text-center text-sm-start">
+          <div class="container">
+              <div class="">
+                  <div class="text-center">
+                      <p class="lead my-4">
+                        Explora y escribe reseñas de musica
+                      </p>
+                      <a href="#"><button type="submit" class="btn btn-success">Escribir Reseña</button></a>
+                      <a href="#"><button type="submit" class="btn btn-success">Explorar Reseñas</button></a>
+                  </div>
+              </div>
+          </div>
+      </section>
+    
+       
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    
+          {% endblock %}
+    
     </div>
     <footer></footer>
 </body>

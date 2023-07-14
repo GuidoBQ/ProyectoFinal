@@ -4,4 +4,5 @@ from blog.views import *
 
 urlpatterns = [
     path('home/', home),
+    
 ]
