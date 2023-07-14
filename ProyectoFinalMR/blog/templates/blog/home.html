@@ -11,10 +11,9 @@
     <title>Home|MusicReview</title>
 </head>
 <body>
-    <!-- header -->
     <nav class="navbar navbar-expand-lg  fixed-top bg-dark" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand navText" href="#page-top">MusicReviews</a>
+            <a class="navbar-brand navText" href="{% url 'Home' %}">MusicReviews</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -57,7 +56,7 @@
                         Explora y escribe reseñas de musica
                       </p>
                       <a href="{% url 'WriteReview'%}"><button type="submit" class="btn btn-success">Escribir Reseña</button></a>
-                      <a href="#"><button type="submit" class="btn btn-success">Explorar Reseñas</button></a>
+                      <a href="{% url 'ReviewList' %}"><button type="submit" class="btn btn-success">Explorar Reseñas</button></a>
                   </div>
               </div>
           </div>

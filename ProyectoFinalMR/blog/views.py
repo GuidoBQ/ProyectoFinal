@@ -17,11 +17,15 @@ def writeReview(request):
         print(miForm)
         if miForm.is_valid:
             data = miForm.cleaned_data
-            Review = review(titulo=data["titulo"],album=data["album"], review = data["review"], albumCover = data["albumCover"])
+            Review = review(titulo=data["titulo"],album=data["album"], review = data["review"],score=data["score"], albumCover = data["albumCover"])
             Review.save()
             return render(request, "blog/home.html")
     else:
         miForm = FormNewReview()
         return render(request, "blog/writeReview.html", {"miForm":miForm})
+
+def reviewList(request):
+    reviews = review.objects.all()
+    return render(request, "blog/reviewList.html",{"reviews": reviews})
 
 # Create your views here.
