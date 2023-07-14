@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link navText" href="#">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link navText" href="{% url 'About' %}">Acerca de</a></li>
                     <li class="nav-item"><a class="nav-link navText" href="#">Perfil</a></li> 
                     <li class="nav-item"><a class="nav-link navText" href="#">{{user.username}}</a></li>
                     <li class="nav-item"><a class="nav-link navText" href="#">Logout</a></li> 
@@ -30,7 +30,7 @@
         </div>
     </nav>
     <div class="contenido">
-        {% block content %}
+        {% block contenido %}
 
         <!-- Inicio -->
     <br>
@@ -47,8 +47,7 @@
     
     </section>
     
-    
-        <!-- Link Venta/Permuta Instrumento -->
+
     
         <section class="text-center text-sm-start">
           <div class="container">
@@ -57,7 +56,7 @@
                       <p class="lead my-4">
                         Explora y escribe reseñas de musica
                       </p>
-                      <a href="#"><button type="submit" class="btn btn-success">Escribir Reseña</button></a>
+                      <a href="{% url 'WriteReview'%}"><button type="submit" class="btn btn-success">Escribir Reseña</button></a>
                       <a href="#"><button type="submit" class="btn btn-success">Explorar Reseñas</button></a>
                   </div>
               </div>
