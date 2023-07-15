@@ -17,24 +17,5 @@
 <p>Autor: {{Review.author}}</p>
 <p>Fecha de Publicacion: {{Review.fechaPublicacion}}</p>
 
-</div>
-<br>
-<div class="container">
-    <h4>Comentarios...</h4>
-    <br>
-    <div class="container">
-    {% if not Review.comentarios.all %}
-        No han comentado este instrumento
-    {% else %}
-        {% for comentario in pedal.comentarios.all %}
-        <p><strong>{{Review.nombre}}</strong></p>
-        <p>{{Review.mensaje}}</p>
-        <p><small>{{Review.fechaComentario}}</small></p>
-        <hr>
-        {% endfor %}
-    {% endif %}
-    <a href="{% url 'comentario' pedal.pk %}">Agrega un Comentario</a>
-    </div>
-</div>
 <br>
 {%endblock%}

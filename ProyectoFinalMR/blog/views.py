@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from blog.forms import *
 from blog.models import *
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -91,7 +92,6 @@ def editProfile(request):
             user_basic_info.username = form.cleaned_data.get('username')
             user_basic_info.email = form.cleaned_data.get('email')
             user_basic_info.save()
-            miForm.save()
             return render(request, 'blog/profile/profile.html')
     else:
         form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
@@ -118,5 +118,18 @@ def editReview(request, TituloReview):
         miForm = FormNewReview(initial={'titulo': review.titulo, 'album': review.album, 'review': review.review, 'score':review.score,'albumCover':review.albumCover})
     return render(request, "blog/editReview.html", {"miForm":miForm})
 
-    
+@login_required
+def changePassword(request):
+    usuario = request.user    
+    if request.method == "POST":
+        form = ChangePasswordForm(data = request.POST, user = usuario)
+        if form.is_valid():
+            if request.POST['new_password1'] == request.POST['new_password2']:
+                user = form.save()
+                update_session_auth_hash(request, user)
+            return HttpResponse("Las constraseñas no coinciden")
+        return render(request, "blog/home.html")
+    else:
+        form = ChangePasswordForm(user = usuario)
+        return render(request, 'blog/profile/changePassword.html', {"form": form})
 # Create your views here.

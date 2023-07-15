@@ -47,3 +47,13 @@ class extraEditForm(forms.ModelForm):
         'description' : forms.Textarea(attrs={'class': 'form-control'}),
         'link': forms.TextInput(attrs={'class': 'form-control'}),
     }
+
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(label = "", widget= forms.PasswordInput(attrs={"placeholder":"Old password"}))
+    new_password1 = forms.CharField(label = "", widget= forms.PasswordInput(attrs={"placeholder":"New password"}))
+    new_password2 = forms.CharField(label = "", widget= forms.PasswordInput(attrs={"placeholder":"Confirmation new password"}))
+
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
+        help_texts = {k:"" for k in fields}
