@@ -23,14 +23,16 @@
                 <br>
                 <p>{{review.score}}/10</p>
                 <a href="{% url 'Review' review.titulo %}"><button type="submit" class="btn btn-success">Leer Mas</button></a>
-               <!-- {% if user.id == guitarra.usuario.id %}
-                <a href="{% url 'guitarra_editar' guitarra.id %}"><i class="bi bi-pencil-fill"></i></a>
-                <a href="{% url 'guitarra_eliminar' guitarra.id %}"><i class="bi bi-trash text-danger"></i></a>
+                {% if user.id == review.author.id %}
+                <br>
+                <a href="#"><i class="bi bi-pencil-fill"></i></a>
+                <a href="{% url 'eliminarReview' review.titulo %}"><button type="submit" class="btn btn-danger">Eliminar</button></a>
+                <a href="{% url 'editReview' review.titulo %}"><button type="submit" class="btn btn-warning">Editar</button></a>
                 <br>
                 <br>
                 <br>
                 <br>
-                {% endif %} <-->
+                {% endif %} 
                 </div>
             </div>
             </div>

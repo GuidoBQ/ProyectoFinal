@@ -21,7 +21,7 @@ class FormNewReview(forms.ModelForm):
         fields = ('author','titulo', 'album', 'review','score','albumCover')
 
         widgets = {
-            'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'author_id', 'type':'hidden'}),
+            'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'author_id', 'type':'hidden',}),
             'titulo' : forms.TextInput(attrs={'class': 'form-control'}),
             'album' : forms.TextInput(attrs={'class': 'form-control'}),
             'review' : forms.Textarea(attrs={'class': 'form-control'}),

@@ -27,6 +27,9 @@ class review(models.Model):
         default=1
     )
 
+
+
+
 class extraInfo(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,

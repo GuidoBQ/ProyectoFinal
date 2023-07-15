@@ -7,32 +7,38 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView
 
+@login_required 
 def home(request):
     return render(request, "blog/home.html")
 
+@login_required 
 def about(request):
     return render(request, "blog/about.html")
 
+@login_required 
 def writeReview(request):
     return render(request, "blog/writeReview.html")
 
+@login_required 
 def writeReview(request):
     if request.method == 'POST':
         miForm = FormNewReview(request.POST, request.FILES)
         print(miForm)
         if miForm.is_valid:
-            data = miForm.cleaned_data
-            Review = review(titulo=data["titulo"],album=data["album"], review = data["review"],score=data["score"], albumCover = data["albumCover"],)
-            Review.save()
+            instance = miForm.save(commit=False)
+            instance.author = request.user
+            instance.save()
             return render(request, "blog/home.html")
     else:
         miForm = FormNewReview()
         return render(request, "blog/writeReview.html", {"miForm":miForm})
 
+@login_required 
 def reviewList(request):
     reviews = review.objects.all()
     return render(request, "blog/reviewList.html",{"reviews": reviews})
 
+@login_required 
 def getReview(request, titulo_review):
     Review = review.objects.get(titulo= titulo_review)
     return render(request, "blog/review.html",{"Review": Review})
@@ -40,6 +46,12 @@ def getReview(request, titulo_review):
 class CustomLogoutView(LogoutView):
     next_page='login'
 
+@login_required 
+def eliminarReview(request, TituloReview):
+    Review = review.objects.get(titulo= TituloReview)
+    Review.delete()
+    reviews = review.objects.all()
+    return render(request, "blog/reviewList.html",{"reviews": reviews})
 
 
 def loginWeb(request):
@@ -54,14 +66,14 @@ def loginWeb(request):
 
 def register(request):
     if request.method == "POST":
-        userCreate = UserCreationForm(request.POST)
+        userCreate = UserRegistrationForm(request.POST)
         if userCreate.is_valid():
             userCreate.save()
             return redirect('login')
         else:
             return render(request, 'blog/profile/register.html', {'form': userCreate})
     else:
-        userCreate = UserCreationForm()
+        userCreate = UserRegistrationForm()
     return render(request, 'blog/profile/register.html', {'form': userCreate})
 
 @login_required  
@@ -82,4 +94,26 @@ def editProfile(request):
     else:
         form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
         return render(request, 'blog/profile/editprofile.html', {"form": form})
+
+@login_required    
+def editReview(request, TituloReview):
+    Review = review.objects.get(titulo= TituloReview)
+    if request.method == 'POST':
+        miForm = FormNewReview(request.POST, request.FILES)
+        if miForm.is_valid:
+            print(miForm)
+            data = miForm.cleaned_data
+
+            Review.titulo = data['titulo']
+            Review.album = data['album']
+            Review.review = data['review']
+            Review.score = data['score']
+            Review.albumCover = data['albumCover']
+            Review.save()
+            reviews = review.objects.all()
+            return render(request, "blog/reviewList.html", {"reviews": reviews})
+    else:
+        miForm = FormNewReview(initial={'titulo': review.titulo, 'album': review.album, 'review': review.review, 'score':review.score,'albumCover':review.albumCover})
+    return render(request, "blog/editReview.html", {"miForm":miForm})
+
 # Create your views here.
