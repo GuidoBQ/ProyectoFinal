@@ -86,10 +86,12 @@ def editProfile(request):
     user_basic_info = User.objects.get(id = usuario.id)
     if request.method == "POST":
         form = UserEditForm(request.POST, instance = usuario)
-        if form.is_valid():
+        miForm= extraEditForm(request.POST)
+        if form.is_valid() and miForm.is_valid():
             user_basic_info.username = form.cleaned_data.get('username')
             user_basic_info.email = form.cleaned_data.get('email')
             user_basic_info.save()
+            miForm.save()
             return render(request, 'blog/profile/profile.html')
     else:
         form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
@@ -116,4 +118,5 @@ def editReview(request, TituloReview):
         miForm = FormNewReview(initial={'titulo': review.titulo, 'album': review.album, 'review': review.review, 'score':review.score,'albumCover':review.albumCover})
     return render(request, "blog/editReview.html", {"miForm":miForm})
 
+    
 # Create your views here.

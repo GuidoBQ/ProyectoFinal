@@ -15,5 +15,4 @@ urlpatterns = [
     path('profile/editProfile/', editProfile, name="editProfile"),
     path('eliminarReview/<TituloReview>', eliminarReview, name="eliminarReview"),
     path('editReview/<TituloReview>', editReview, name="editReview"),
-
 ]
