@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from blog.forms import *
 from blog.models import *
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -38,22 +38,35 @@ def getReview(request, titulo_review):
 
 def loginWeb(request):
     if request.method == "POST":
-        user = authenticate(username = request.POST['user'], password = request.POST['password'])
+        username = request.POST['user']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'blog/home.html')
-        else:
-            return render(request, 'blog/profile/login.html', {'error': 'Usuario o contraseña incorrectos'})
-    else:
-        return render(request, 'blog/profile/login.html')
+            return redirect('Home')
+    return render(request, 'blog/profile/login.html', {'error': 'Usuario o contraseña incorrectos'})
+
+
+#def register(request):
+#    if request.method == "POST":
+#        userCreate = UserCreationForm(request.POST)
+#        if userCreate.is_valid():
+#            userCreate.save()
+#            return render(request, 'blog/profile/login.html')
+#    else:
+#        userCreate = UserCreationForm()
+#        return render(request, 'blog/profile/register.html', {'userCreate': userCreate})
 
 def register(request):
     if request.method == "POST":
         userCreate = UserCreationForm(request.POST)
-        if userCreate is not None:
+        if userCreate.is_valid():
             userCreate.save()
-            return render(request, 'blog/profile/login.html')
+            return redirect('login')
+        else:
+            return render(request, 'blog/profile/register.html', {'form': userCreate})
     else:
-        return render(request, 'blog/profile/register.html')
+        userCreate = UserCreationForm()
+    return render(request, 'blog/profile/register.html', {'form': userCreate})
 
 # Create your views here.
