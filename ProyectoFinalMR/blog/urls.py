@@ -11,4 +11,6 @@ urlpatterns = [
     path('review/<titulo_review>', getReview, name="Review"),
     path('Logout/',CustomLogoutView.as_view(), name="Logout"),
     path('register/', register, name="Register"),
+    path('profile/', profileview, name="profile"),
+    path('profile/editProfile/', editProfile, name="editProfile"),
 ]

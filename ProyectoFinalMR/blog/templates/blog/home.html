@@ -22,7 +22,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link navText" href="{% url 'About' %}">Acerca de</a></li>
                     <li class="nav-item"><a class="nav-link navText" href="#">Perfil</a></li> 
-                    <li class="nav-item"><a class="nav-link navText" href="#">{{user.username}}</a></li>
+                    <li class="nav-item"><a class="nav-link navText" href="{% url 'profile' %}">{{user.username}}</a></li>
                     <li class="nav-item"><a class="nav-link navText" href="{% url 'Logout' %}">Logout</a></li> 
                 </ul>
             </div>

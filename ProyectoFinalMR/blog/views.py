@@ -64,4 +64,22 @@ def register(request):
         userCreate = UserCreationForm()
     return render(request, 'blog/profile/register.html', {'form': userCreate})
 
+@login_required  
+def profileview(request):
+    return render(request, 'blog/profile/profile.html')
+
+@login_required  
+def editProfile(request):
+    usuario = request.user
+    user_basic_info = User.objects.get(id = usuario.id)
+    if request.method == "POST":
+        form = UserEditForm(request.POST, instance = usuario)
+        if form.is_valid():
+            user_basic_info.username = form.cleaned_data.get('username')
+            user_basic_info.email = form.cleaned_data.get('email')
+            user_basic_info.save()
+            return render(request, 'blog/profile/profile.html')
+    else:
+        form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
+        return render(request, 'blog/profile/editprofile.html', {"form": form})
 # Create your views here.

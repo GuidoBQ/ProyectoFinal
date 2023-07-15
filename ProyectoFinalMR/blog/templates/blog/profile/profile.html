@@ -1,0 +1,18 @@
+{% extends "../home.html" %}
+{% load static %}
+
+{% block contenido %}
+<br>
+<br>
+<br>
+    <div class="text-center">
+        <ul>
+            <p>{{user.username}}</p>
+            <p>{{user.email}}</p>
+            <p>{{user.description}}</p>
+            <p>Links sociales: {{user.link}}</p>
+        </ul>
+        <a href="{%url 'editProfile' %}" class="btn btn-success" style="text-decoration: none; color: white;"> Editar Perfil</a>
+        <a href="#" class="btn btn-success" style="text-decoration: none; color: white;"> Avatar</a>
+    </div>
+{% endblock %}

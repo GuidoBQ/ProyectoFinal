@@ -2,6 +2,7 @@ from django import forms
 from blog.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150)
@@ -26,3 +27,23 @@ class FormNewReview(forms.ModelForm):
             'review' : forms.Textarea(attrs={'class': 'form-control'}),
             'score' : forms.Select(attrs={'class': 'form-control'}),
         }
+                                         
+class UserEditForm(UserChangeForm):
+    username = forms.CharField(widget= forms.TextInput(attrs={"placeholder":"Username"}))
+    email = forms.CharField(widget= forms.TextInput(attrs={"placeholder":"Email"}))
+    #password = forms.CharField(widget= forms.PasswordInput(attrs={"placeholder":"Password"}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email'] #'password'
+        #help_texts = {k:"" for k in fields}     
+
+class extraEditForm(forms.ModelForm):
+    model = extraInfo
+    fields = ('author','description', 'link')
+
+    widgets={
+        'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'author_id', 'type':'hidden'}),
+        'description' : forms.Textarea(attrs={'class': 'form-control'}),
+        'link': forms.TextInput(attrs={'class': 'form-control'}),
+    }

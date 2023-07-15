@@ -27,4 +27,12 @@ class review(models.Model):
         default=1
     )
 
+class extraInfo(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default=1)
+    description= models.CharField(max_length=200, default="Sin Descripcion"),
+    link= models.CharField(max_length=200, default="Sin Links")
+
 # Create your models here.
