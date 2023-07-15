@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LogoutView
 
 def home(request):
     return render(request, "blog/home.html")
@@ -20,8 +21,9 @@ def writeReview(request):
         miForm = FormNewReview(request.POST)
         print(miForm)
         if miForm.is_valid:
+            miForm.instance.user = request.user
             data = miForm.cleaned_data
-            Review = review(titulo=data["titulo"],album=data["album"], review = data["review"],score=data["score"], albumCover = data["albumCover"])
+            Review = review(titulo=data["titulo"],album=data["album"], review = data["review"],score=data["score"], albumCover = data["albumCover"],)
             Review.save()
             return render(request, "blog/home.html")
     else:
@@ -36,6 +38,11 @@ def getReview(request, titulo_review):
     Review = review.objects.get(titulo= titulo_review)
     return render(request, "blog/review.html",{"Review": Review})
 
+class CustomLogoutView(LogoutView):
+    next_page='login'
+
+
+
 def loginWeb(request):
     if request.method == "POST":
         username = request.POST['user']
@@ -45,17 +52,6 @@ def loginWeb(request):
             login(request, user)
             return redirect('Home')
     return render(request, 'blog/profile/login.html', {'error': 'Usuario o contraseña incorrectos'})
-
-
-#def register(request):
-#    if request.method == "POST":
-#        userCreate = UserCreationForm(request.POST)
-#        if userCreate.is_valid():
-#            userCreate.save()
-#            return render(request, 'blog/profile/login.html')
-#    else:
-#        userCreate = UserCreationForm()
-#        return render(request, 'blog/profile/register.html', {'userCreate': userCreate})
 
 def register(request):
     if request.method == "POST":
