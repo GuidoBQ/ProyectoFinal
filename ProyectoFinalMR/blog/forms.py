@@ -17,10 +17,10 @@ class UserRegistrationForm(UserCreationForm):
 class FormNewReview(forms.ModelForm):
     class Meta:
         model = review
-        fields = ('titulo', 'album', 'review','score','albumCover')
+        fields = ('author','titulo', 'album', 'review','score','albumCover')
 
         widgets = {
-            'user': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'user_id', 'type':'hidden'}),
+            'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'author_id', 'type':'hidden'}),
             'titulo' : forms.TextInput(attrs={'class': 'form-control'}),
             'album' : forms.TextInput(attrs={'class': 'form-control'}),
             'review' : forms.Textarea(attrs={'class': 'form-control'}),

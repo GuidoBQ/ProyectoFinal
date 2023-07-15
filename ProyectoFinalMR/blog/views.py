@@ -18,10 +18,9 @@ def writeReview(request):
 
 def writeReview(request):
     if request.method == 'POST':
-        miForm = FormNewReview(request.POST)
+        miForm = FormNewReview(request.POST, request.FILES)
         print(miForm)
         if miForm.is_valid:
-            miForm.instance.user = request.user
             data = miForm.cleaned_data
             Review = review(titulo=data["titulo"],album=data["album"], review = data["review"],score=data["score"], albumCover = data["albumCover"],)
             Review.save()

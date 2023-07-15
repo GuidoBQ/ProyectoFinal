@@ -17,7 +17,9 @@
                 <div class="card-body">
                 <img src="{{review.albumCover.url}}" class="" width="100px">
                 <br>
-                {{review.album}}
+                {{review.titulo}}
+                <br>
+                Autor: {{review.author }}
                 <br>
                 <p>{{review.score}}/10</p>
                 <a href="{% url 'Review' review.titulo %}"><button type="submit" class="btn btn-success">Leer Mas</button></a>
