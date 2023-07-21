@@ -31,7 +31,7 @@ class review(models.Model):
 
 class extraInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    description= models.TextField(max_length=200, default="Sin Descripcion"),
-    link= models.CharField(max_length=200, default="Sin Links")
+    description= models.TextField(null=True, blank=True)
+    link= models.URLField(max_length=200, default="Sin Links")
 
 # Create your models here.
