@@ -28,7 +28,7 @@ class FormNewReview(forms.ModelForm):
             'score' : forms.Select(attrs={'class': 'form-control'}),
         }
                                          
-class UserEditForm(UserChangeForm):
+class UserEditForm(forms.Form):
     username = forms.CharField(widget= forms.TextInput(attrs={"placeholder":"Username"}))
     email = forms.CharField(widget= forms.TextInput(attrs={"placeholder":"Email"}))
     description= forms.CharField(widget= forms.Textarea(attrs={"placeholder":"Descripcion"})),
