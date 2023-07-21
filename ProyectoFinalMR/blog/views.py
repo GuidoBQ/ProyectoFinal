@@ -79,15 +79,19 @@ def register(request):
 
 @login_required  
 def profileview(request):
-    usuario = request.user
-    Info = extraInfo.objects.get(user= usuario)
-    return render(request, 'blog/profile/profile.html', {"Info": Info})
+        usuario = request.user
+        extraInfo.objects.get(user= usuario)
+        if extraInfo.objects.get(user= usuario) is not None:
+            Info =extraInfo.objects.get(user= usuario)
+            return render(request, 'blog/profile/profile.html', {"Info": Info})
+    
+        return render(request, 'blog/profile/profile.html')
 
 @login_required  
 def editProfile(request):
     usuario = request.user
     user_basic_info = User.objects.get(id = usuario.id)
-    datosExtra= extraInfo.objects.get(user=usuario)
+    datosExtra= extraInfo.objects.get_or_create(user=usuario)
     if request.method == "POST":
         form = UserEditForm(request.POST)
         if form.is_valid():

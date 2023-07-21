@@ -10,7 +10,7 @@
             <p>{{user.username}}</p>
             <p>{{user.email}}</p>
             <p>{{Info.description}}</p>
-            <p>Links sociales: </p><a>{{Info.link}}</a>
+            <p>Links sociales: </p><a href="{{Info.link}}">{{Info.link}}</a>
         </ul>
         <a href="{%url 'editProfile' %}" class="btn btn-success" style="text-decoration: none; color: white;"> Editar Perfil</a>
         <a href="#" class="btn btn-success" style="text-decoration: none; color: white;"> Avatar</a>
