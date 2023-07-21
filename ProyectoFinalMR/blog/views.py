@@ -85,13 +85,16 @@ def profileview(request):
 def editProfile(request):
     usuario = request.user
     user_basic_info = User.objects.get(id = usuario.id)
+    datosExtra= extraInfo.objects.get_or_create(user=usuario)
     if request.method == "POST":
         form = UserEditForm(request.POST, instance = usuario)
-        miForm= extraEditForm(request.POST)
-        if form.is_valid() and miForm.is_valid():
+        if form.is_valid():
             user_basic_info.username = form.cleaned_data.get('username')
             user_basic_info.email = form.cleaned_data.get('email')
+            datosExtra.description = form.cleaned_data.get('desription')
+            datosExtra.link = form.cleaned_data.get('link')
             user_basic_info.save()
+            datosExtra.save()
             return render(request, 'blog/profile/profile.html')
     else:
         form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
