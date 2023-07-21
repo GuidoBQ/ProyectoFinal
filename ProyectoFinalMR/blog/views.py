@@ -79,19 +79,18 @@ def register(request):
 
 @login_required  
 def profileview(request):
-        usuario = request.user
-        extraInfo.objects.get(user= usuario)
-        if extraInfo.objects.get(user= usuario) is not None:
-            Info =extraInfo.objects.get(user= usuario)
-            return render(request, 'blog/profile/profile.html', {"Info": Info})
+    usuario = request.user
+    Info,  created =extraInfo.objects.get_or_create(user= usuario)
+    return render(request, 'blog/profile/profile.html', {"Info": Info})
     
-        return render(request, 'blog/profile/profile.html')
+    #return render(request, 'blog/profile/profile.html')
 
-@login_required  
+@login_required
 def editProfile(request):
     usuario = request.user
-    user_basic_info = User.objects.get(id = usuario.id)
-    datosExtra= extraInfo.objects.get_or_create(user=usuario)
+    user_basic_info = User.objects.get(id=usuario.id)
+    datosExtra, created = extraInfo.objects.get_or_create(user=usuario)
+
     if request.method == "POST":
         form = UserEditForm(request.POST)
         if form.is_valid():
@@ -103,8 +102,27 @@ def editProfile(request):
             datosExtra.save()
             return render(request, 'blog/profile/profile.html')
     else:
-        form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
+        form = UserEditForm(
+            initial={'username': usuario.username, 'email': usuario.email})
         return render(request, 'blog/profile/editprofile.html', {"form": form})
+#@login_required  
+#def editProfile(request):
+#    usuario = request.user
+#    user_basic_info = User.objects.get(id = usuario.id)
+#    datosExtra= extraInfo.objects.get_or_create(user=usuario)
+#    if request.method == "POST":
+#        form = UserEditForm(request.POST)
+#        if form.is_valid():
+#            user_basic_info.username = form.cleaned_data.get('username')
+#            user_basic_info.email = form.cleaned_data.get('email')
+#            datosExtra.description = form.cleaned_data.get('description')
+#            datosExtra.link = form.cleaned_data.get('link')
+#            user_basic_info.save()
+#            datosExtra.save()
+#            return render(request, 'blog/profile/profile.html')
+#    else:
+#        form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
+#        return render(request, 'blog/profile/editprofile.html', {"form": form})
 
 @login_required    
 def editReview(request, TituloReview):
