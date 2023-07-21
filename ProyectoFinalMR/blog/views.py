@@ -115,7 +115,7 @@ def editReview(request, TituloReview):
             reviews = review.objects.all()
             return render(request, "blog/reviewList.html", {"reviews": reviews})
     else:
-        miForm = FormNewReview(initial={'titulo': review.titulo, 'album': review.album, 'review': review.review, 'score':review.score,'albumCover':review.albumCover})
+        miForm = FormNewReview(initial={'titulo': Review.titulo, 'album': Review.album, 'review': Review.review, 'score':Review.score,'albumCover':Review.albumCover})
     return render(request, "blog/editReview.html", {"miForm":miForm})
 
 @login_required
