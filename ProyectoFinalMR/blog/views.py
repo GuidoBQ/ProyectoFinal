@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from blog.forms import *
 from blog.models import *
@@ -105,24 +105,6 @@ def editProfile(request):
         form = UserEditForm(
             initial={'username': usuario.username, 'email': usuario.email})
         return render(request, 'blog/profile/editprofile.html', {"form": form})
-#@login_required  
-#def editProfile(request):
-#    usuario = request.user
-#    user_basic_info = User.objects.get(id = usuario.id)
-#    datosExtra= extraInfo.objects.get_or_create(user=usuario)
-#    if request.method == "POST":
-#        form = UserEditForm(request.POST)
-#        if form.is_valid():
-#            user_basic_info.username = form.cleaned_data.get('username')
-#            user_basic_info.email = form.cleaned_data.get('email')
-#            datosExtra.description = form.cleaned_data.get('description')
-#            datosExtra.link = form.cleaned_data.get('link')
-#            user_basic_info.save()
-#            datosExtra.save()
-#            return render(request, 'blog/profile/profile.html')
-#    else:
-#        form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email})
-#        return render(request, 'blog/profile/editprofile.html', {"form": form})
 
 @login_required    
 def editReview(request, TituloReview):
@@ -159,4 +141,17 @@ def changePassword(request):
     else:
         form = ChangePasswordForm(user = usuario)
         return render(request, 'blog/profile/changePassword.html', {"form": form})
+    
+def add_comment_to_post(request, pk):
+    post = get_object_or_404(review, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/add_comment_to_post.html', {'form': form})
 # Create your views here.

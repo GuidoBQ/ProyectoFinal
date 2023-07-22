@@ -34,4 +34,23 @@ class extraInfo(models.Model):
     description= models.TextField(null=True, blank=True)
     link= models.URLField(max_length=200, default="Sin Links")
 
+
+class Comment(models.Model):
+    post = models.ForeignKey('blog.review', related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default=1
+    )
+    text = models.TextField()
+    fechaPublicacion = models.DateTimeField(auto_now_add=True)
+    approved_comment = models.BooleanField(default=False)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text
+
 # Create your models here.

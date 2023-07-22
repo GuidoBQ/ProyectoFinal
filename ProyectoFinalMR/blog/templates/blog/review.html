@@ -18,4 +18,15 @@
 <p>Fecha de Publicacion: {{Review.fechaPublicacion}}</p>
 
 <br>
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=Review.pk %}">Add comment</a>
+{% for comment in Review.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.fechaPublicacion }}</div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
 {%endblock%}
