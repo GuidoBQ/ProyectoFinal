@@ -150,7 +150,7 @@ def add_comment_to_post(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect('Review', titulo_review=post.titulo)
+            return redirect('Review', post.titulo) #pk=post.pk
     else:
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
