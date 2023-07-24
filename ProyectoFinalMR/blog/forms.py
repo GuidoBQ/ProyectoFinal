@@ -55,3 +55,7 @@ class CommentForm(forms.ModelForm):
 
         widgets = {
             'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'author_id', 'type':'hidden',})}
+        
+
+class AvatarForm(forms.Form):
+    avatar = forms.ImageField()

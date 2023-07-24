@@ -53,4 +53,10 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
+
+class Avatar(models.Model):
+    #vinculo con el usuario
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #SubCarpeta de avatares
+    image = models.ImageField(upload_to='img/', null = True, blank = True)
 # Create your models here.

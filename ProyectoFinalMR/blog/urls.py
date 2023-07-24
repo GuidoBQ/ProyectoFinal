@@ -17,6 +17,6 @@ urlpatterns = [
     path('editReview/<TituloReview>', editReview, name="editReview"),
     path('profile/changePassword/', changePassword, name="changePassword"),
     path(r'^Review/(?P<pk>\d+)/comment/$', add_comment_to_post, name='add_comment_to_post'),
-    
-
+    path('profile/changeAvatar/', editAvatar, name="editAvatar"),
 ]
+

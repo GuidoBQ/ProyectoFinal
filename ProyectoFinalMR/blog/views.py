@@ -83,7 +83,6 @@ def profileview(request):
     Info,  created =extraInfo.objects.get_or_create(user= usuario)
     return render(request, 'blog/profile/profile.html', {"Info": Info})
     
-    #return render(request, 'blog/profile/profile.html')
 
 @login_required
 def editProfile(request):
@@ -150,8 +149,39 @@ def add_comment_to_post(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect('Review', post.titulo) #pk=post.pk
+            return redirect('Review', post.titulo) 
     else:
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
+
+def editAvatar(request):
+    if request.method == 'POST':
+        form = AvatarForm(request.POST, request.FILES)
+        print(form)
+        print(form.is_valid())
+        if form.is_valid():
+            user = User.objects.get(username = request.user)
+            avatar = Avatar(user = user, image = form.cleaned_data['avatar'], id = request.user.id)
+            avatar.save()
+            avatar = Avatar.objects.filter(user = request.user.id)
+            try:
+                avatar = avatar[0].image.url
+            except:
+                avatar = None           
+            return render(request, "blog/profile/profile.html", {'avatar': avatar})
+    else:
+        try:
+            avatar = Avatar.objects.filter(user = request.user.id)
+            form = AvatarForm()
+        except:
+            form = AvatarForm()
+    return render(request, "blog/profile/avatar.html", {'form': form})
+
+def getavatar(request):
+    avatar = Avatar.objects.filter(user = request.user.id)
+    try:
+        avatar = avatar[0].image.url
+    except:
+        avatar = None
+    return avatar
 # Create your views here.
