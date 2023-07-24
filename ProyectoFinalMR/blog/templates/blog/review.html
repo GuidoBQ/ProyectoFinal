@@ -19,14 +19,14 @@
 
 <br>
 <hr>
-<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=Review.id %}">Add comment</a>
+<a class="btn btn-success" href="{% url 'add_comment_to_post' pk=Review.id %}">Comentar</a>
 {% for comment in Review.comments.all %}
     <div class="comment">
-        <div class="date">{{ comment.fechaPublicacion }}</div>
         <strong>{{ comment.author }}</strong>
+        <div class="date">{{ comment.fechaPublicacion }}</div>
         <p>{{ comment.text|linebreaks }}</p>
     </div>
 {% empty %}
-    <p>No comments here yet :(</p>
+    <p>Sin Comentarios :(</p>
 {% endfor %}
 {%endblock%}
