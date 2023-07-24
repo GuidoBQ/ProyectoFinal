@@ -7,7 +7,9 @@
 <br>
     <div class="text-center">
         <ul>
-            <p><img src="{{avatar}}" class="img-fluid rounded-top" alt=""></p>
+            {% if user.avatar.image %}
+            <img src="{{ user.avatar.image.url }}" alt="here" height="200px">
+            {% endif %}
             <p>{{user.username}}</p>
             <p>{{user.email}}</p>
             <p>{{Info.description}}</p>
