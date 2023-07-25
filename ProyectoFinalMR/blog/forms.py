@@ -33,7 +33,7 @@ class UserEditForm(forms.Form):
     email = forms.CharField(widget= forms.TextInput(attrs={"placeholder":"Email"}))
     description= forms.CharField(widget= forms.Textarea(attrs={"placeholder":"Descripcion"}))
     link= forms.URLField(widget= forms.TextInput(attrs={"placeholder":"Links"}))
-    #password = forms.CharField(widget= forms.PasswordInput(attrs={"placeholder":"Password"}))
+    
 
 
 class ChangePasswordForm(PasswordChangeForm):

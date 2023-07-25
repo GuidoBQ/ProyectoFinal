@@ -55,8 +55,6 @@ class Comment(models.Model):
 
 
 class Avatar(models.Model):
-    #vinculo con el usuario
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #SubCarpeta de avatares
     image = models.ImageField(upload_to='img/', null = True, blank = True)
 # Create your models here.
